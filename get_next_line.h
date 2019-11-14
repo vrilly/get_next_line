@@ -6,7 +6,7 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:31 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 14:57:23 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/14 15:17:48 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ typedef struct	s_buffer
 	int		fd;
 }				t_buffer;
 int				get_next_line(int fd, char **line);
-t_buffer		*util_initbuffer(int fd);
+t_buffer		*util_initbuffer(int fd, t_buffer *old_buff);
 #endif

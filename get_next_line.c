@@ -6,7 +6,7 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 15:14:34 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/14 15:20:11 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,7 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	*line = malloc(BUFFER_SIZE);
 	i = 0;
-	if (!buff || buff->fd != fd)
-	{
-		free(buff);
-		buff = NULL;
-		buff = util_initbuffer(fd);
-	}
+	buff = util_initbuffer(fd, buff);
 	if (find_line(fd, buff, line))
 		return (1);
 	if (buff->b_read == -1)
