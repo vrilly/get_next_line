@@ -6,12 +6,11 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 17:12:56 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/14 17:19:12 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static void	read_buffer(int fd, t_buffer *buff)
 {

@@ -6,12 +6,11 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:39 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 17:16:09 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/14 17:19:02 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 t_buffer	*util_initbuffer(int fd, t_buffer *old_buff)
 {
