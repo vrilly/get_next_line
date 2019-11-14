@@ -6,7 +6,7 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 15:25:59 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/14 17:12:56 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ static void	read_buffer(int fd, t_buffer *buff)
 		buff->b_pos = 0;
 }
 
-static void	extend_lb(char **line, size_t *lb_size)
+static int	extend_lb(char **line, size_t *lb_size)
 {
 	char	*newbuf;
 	size_t	i;
 
 	newbuf = malloc(*lb_size + BUFFER_SIZE);
+	if (!newbuf)
+		return (0);
 	i = 0;
 	while (i < *lb_size)
 	{
@@ -35,6 +37,7 @@ static void	extend_lb(char **line, size_t *lb_size)
 	free(*line);
 	*line = newbuf;
 	*lb_size += BUFFER_SIZE;
+	return (1);
 }
 
 static int	find_line(int fd, t_buffer *buff, char **line)
@@ -57,8 +60,8 @@ static int	find_line(int fd, t_buffer *buff, char **line)
 		(*line)[i] = buff->buff[buff->b_pos];
 		i++;
 		buff->b_pos++;
-		if (i >= lb_size)
-			extend_lb(line, &lb_size);
+		if (i >= lb_size && !extend_lb(line, &lb_size))
+			return (-1);
 		if (buff->b_read != 0 && buff->b_pos == buff->b_read)
 			read_buffer(fd, buff);
 	}
@@ -74,6 +77,8 @@ int			get_next_line(int fd, char **line)
 	if (!line || fd < 0)
 		return (-1);
 	*line = malloc(BUFFER_SIZE);
+	if (!*line)
+		return (-1);
 	i = 0;
 	buff = util_initbuffer(fd, buff);
 	if (find_line(fd, buff, line))
