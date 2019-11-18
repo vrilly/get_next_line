@@ -12,11 +12,14 @@
 
 #include "get_next_line.h"
 
-static void	read_buffer(int fd, t_buffer *buff)
+static int	read_buffer(int fd, t_buffer *buff)
 {
+	if (buff->b_pos < buff->b_read && buff->b_read != 0)
+		return (1);
 	buff->b_read = read(fd, buff->buff, BUFFER_SIZE);
 	if (buff->b_read > 0)
 		buff->b_pos = 0;
+	return (buff->b_read > 0);
 }
 
 static int	extend_lb(char **line, size_t *lb_size)
@@ -54,7 +57,7 @@ static int	find_line(int fd, t_buffer *buff, char **line)
 		{
 			(*line)[i] = '\0';
 			buff->b_pos++;
-			return (1);
+			return (read_buffer(fd, buff));
 		}
 		(*line)[i] = buff->buff[buff->b_pos];
 		i++;
@@ -72,7 +75,9 @@ int			get_next_line(int fd, char **line)
 {
 	static t_buffer	*buff;
 	ssize_t			i;
+	int				ret;
 
+	ret = 0;
 	if (!line || fd < 0)
 		return (-1);
 	*line = malloc(BUFFER_SIZE);
@@ -80,17 +85,11 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	i = 0;
 	buff = util_initbuffer(fd, buff);
-	if (find_line(fd, buff, line))
-		return (1);
-	if (buff->b_read == -1)
-		return (-1);
-	if (!**line)
+	ret = find_line(fd, buff, line);
+	if (!ret)
 	{
-		free(*line);
-		*line = NULL;
 		free(buff);
 		buff = NULL;
-		return (0);
 	}
-	return (1);
+	return (ret);
 }

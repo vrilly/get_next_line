@@ -73,24 +73,18 @@ int			get_next_line(int fd, char **line)
 	static t_blist	*list;
 	t_buffer		*buff;
 	ssize_t			i;
+	int				ret;
 
 	if (!line || fd < 0)
 		return (-1);
 	*line = malloc(BUFFER_SIZE);
 	i = 0;
+	ret = 0;
 	buff = util_initbuffer(&list, fd);
 	if (!*line || !buff)
 		return (-1);
-	if (find_line(fd, buff, line))
-		return (1);
-	if (buff->b_read == -1)
-		return (-1);
-	if (!**line)
-	{
-		free(*line);
-		*line = NULL;
+	ret = find_line(fd, buff, line);
+	if (!ret)
 		util_rmbuffer(&list, buff);
-		return (0);
-	}
-	return (1);
+	return (ret);
 }
