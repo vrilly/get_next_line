@@ -6,7 +6,7 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 17:19:12 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/19 21:55:27 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static int	find_line(int fd, t_buffer *buff, char **line)
 int			get_next_line(int fd, char **line)
 {
 	static t_buffer	*buff;
-	ssize_t			i;
 	int				ret;
 
 	ret = 0;
@@ -83,7 +82,6 @@ int			get_next_line(int fd, char **line)
 	*line = malloc(BUFFER_SIZE);
 	if (!*line)
 		return (-1);
-	i = 0;
 	buff = util_initbuffer(fd, buff);
 	ret = find_line(fd, buff, line);
 	if (!ret)
