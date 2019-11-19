@@ -6,7 +6,7 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/19 22:20:40 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/19 22:26:57 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ int			get_next_line(int fd, char **line)
 {
 	static t_blist	*list;
 	t_buffer		*buff;
+	ssize_t			i;
 	int				ret;
 
-	if (!line || fd < 0 || fd > FOPEN_MAX)
+	if (!line || fd < 0)
 		return (-1);
 	*line = malloc(BUFFER_SIZE);
+	i = 0;
 	ret = 0;
 	buff = util_initbuffer(&list, fd);
 	if (!*line || !buff)
