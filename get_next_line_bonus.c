@@ -6,17 +6,20 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 17:18:48 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/19 21:01:04 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static void	read_buffer(int fd, t_buffer *buff)
+static int	read_buffer(int fd, t_buffer *buff)
 {
+	if (buff->b_pos < buff->b_read && buff->b_read != 0)
+		return (1);
 	buff->b_read = read(fd, buff->buff, BUFFER_SIZE);
 	if (buff->b_read > 0)
 		buff->b_pos = 0;
+	return (buff->b_read > 0);
 }
 
 static int	extend_lb(char **line, size_t *lb_size)
@@ -54,7 +57,7 @@ static int	find_line(int fd, t_buffer *buff, char **line)
 		{
 			(*line)[i] = '\0';
 			buff->b_pos++;
-			return (1);
+			return (read_buffer(fd, buff));
 		}
 		(*line)[i] = buff->buff[buff->b_pos];
 		i++;
