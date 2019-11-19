@@ -6,7 +6,7 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:31 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/19 22:16:09 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/14 16:57:58 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # endif
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 typedef struct	s_buffer
 {
