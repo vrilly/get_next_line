@@ -6,11 +6,11 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:39 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 17:18:54 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/26 18:13:16 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static t_buffer	*create_buffer(int fd)
 {

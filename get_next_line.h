@@ -6,12 +6,12 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:31 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/14 16:57:58 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/26 18:20:42 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif

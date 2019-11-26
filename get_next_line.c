@@ -6,11 +6,11 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/21 17:33:50 by tjans         ########   odam.nl         */
+/*   Updated: 2019/11/26 18:19:32 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static int	read_buffer(int fd, t_buffer *buff)
 {
@@ -57,7 +57,7 @@ static int	find_line(int fd, t_buffer *buff, char **line)
 		{
 			(*line)[i] = '\0';
 			buff->b_pos++;
-			return (read_buffer(fd, buff));
+			return (1);
 		}
 		(*line)[i] = buff->buff[buff->b_pos];
 		i++;
@@ -90,12 +90,12 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	}
 	ret = find_line(fd, buff, line);
-	if (ret <= 0 || buff->b_read < 0)
-		util_rmbuffer(&list, buff);
 	if (buff->b_read < 0)
 	{
 		*line = NULL;
 		ret = -1;
 	}
+	if (ret <= 0 || buff->b_read < 0)
+		util_rmbuffer(&list, buff);
 	return (ret);
 }
