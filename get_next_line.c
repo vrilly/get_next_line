@@ -6,11 +6,19 @@
 /*   By: tjans <tjans@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 22:05:23 by tjans         #+#    #+#                 */
-/*   Updated: 2019/11/26 18:19:32 by tjans         ########   odam.nl         */
+/*   Updated: 2019/12/07 19:20:37 by tjans         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static int	fail(char **line)
+{
+	if (*line)
+		free(*line);
+	*line = NULL;
+	return (-1);
+}
 
 static int	read_buffer(int fd, t_buffer *buff)
 {
@@ -85,16 +93,10 @@ int			get_next_line(int fd, char **line)
 	ret = 0;
 	buff = util_initbuffer(&list, fd);
 	if (!buff)
-	{
-		free(*line);
-		return (-1);
-	}
+		return (fail(line));
 	ret = find_line(fd, buff, line);
 	if (buff->b_read < 0)
-	{
-		*line = NULL;
-		ret = -1;
-	}
+		ret = fail(line);
 	if (ret <= 0 || buff->b_read < 0)
 		util_rmbuffer(&list, buff);
 	return (ret);
